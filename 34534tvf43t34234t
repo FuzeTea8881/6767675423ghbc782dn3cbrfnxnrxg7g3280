@@ -3590,9 +3590,9 @@ runFunction(function()
 			{CFrame = CFrame.new(0.16, -1.16, 0.5) * CFrame.Angles(math.rad(-179), math.rad(54), math.rad(33)), Time = 0.1}
 		},
 		["astralbyn1san1"] = {
-                        {CFrame = CFrame.new(0.7, -0.7, 0.6) * CFrame.Angles(math.rad(-16), math.rad(60), math.rad(-80)), Time = 0.2},
-                        {CFrame = CFrame.new(0.7, -0.7, 0.6) * CFrame.Angles(math.rad(-16), math.rad(60), math.rad(-80)), Time = 0.2},
-                        {CFrame = CFrame.new(0.95, -1.06, -2.25) * CFrame.Angles(math.rad(-179), math.rad(61), math.rad(80)), Time = 0.1}
+                        {CFrame = CFrame.new(0.7, -0.7, 0.6) * CFrame.Angles(math.rad(-16), math.rad(60), math.rad(-80)), Time = 3},
+                        {CFrame = CFrame.new(0.7, -0.7, 0.6) * CFrame.Angles(math.rad(-16), math.rad(60), math.rad(-80)), Time = 0.4},
+                        {CFrame = CFrame.new(0.95, -1.06, -2.25) * CFrame.Angles(math.rad(-179), math.rad(61), math.rad(80)), Time = 5}
                 },
 		["Vertical Spin"] = {
 			{CFrame = CFrame.new(0, 0, 0) * CFrame.Angles(math.rad(-90), math.rad(8), math.rad(5)), Time = 0.1},
@@ -3869,7 +3869,7 @@ runFunction(function()
 									if killauraanimationtween.Enabled then 
 										gameCamera.Viewmodel.RightHand.RightWrist.C0 = originalArmC0
 									else
-										killauracurrentanim = tweenService:Create(gameCamera.Viewmodel.RightHand.RightWrist, TweenInfo.new(0.1), {C0 = originalArmC0})
+										killauracurrentanim = tweenService:Create(gameCamera.Viewmodel.RightHand.RightWrist, TweenInfo.new(1), {C0 = originalArmC0})
 										killauracurrentanim:Play()
 									end
 								end
@@ -3913,7 +3913,7 @@ runFunction(function()
 						if killauraanimationtween.Enabled then 
 							gameCamera.Viewmodel.RightHand.RightWrist.C0 = originalArmC0
 						else
-							killauracurrentanim = tweenService:Create(gameCamera.Viewmodel.RightHand.RightWrist, TweenInfo.new(0.1), {C0 = originalArmC0})
+							killauracurrentanim = tweenService:Create(gameCamera.Viewmodel.RightHand.RightWrist, TweenInfo.new(1), {C0 = originalArmC0})
 							killauracurrentanim:Play()
 						end
                     end
