@@ -1,0 +1,39 @@
+-- Whitelist
+local Whitelist = {
+	"8CE5AF9A-BE40-40C2-ABE5-DD8D2ECFF8A3", -- nothm
+	"87360A40-80DB-4F6A-A717-08ABAC03A12E", -- fuze 2nd pc
+    "6A2AC550-6E5D-43B2-AB11-90B6EDC0F2E5", -- zec
+    "83A5BEB3-7CF0-44E5-96A1-CBB49376E891", -- Mystic
+    "96FE05C9-6C95-4302-B8E5-EFEF204578AB", -- n1san1
+    "70019eb0-f6e2-4d07-911c-3674d53a7b2e", -- urremindertousezephyr
+}
+
+-- Blacklist
+local Blacklist = {
+    "BD575417-0AA5-44B0-9587-802C9a805136", -- Mont
+    "2B7E4926-420F-446C-96BD-7BC5C6AC57F2", -- vyx (glocked decision)
+    "20320114-562e-45fe-8c2a-8671f7ad3495", -- l0l
+    "1753EAAC-E139-4510-8DD1-5B8ADBEFCD2E", -- rainy
+}
+
+-- Get the HWID of the current client
+local HWID = game:GetService("RbxAnalyticsService"):GetClientId()
+
+-- Check if the HWID is in the blacklist
+if Blacklist[HWID] then
+    game.Players.LocalPlayer:Kick("Blacklisted nn? Cry about it.")
+end
+
+-- Check if the HWID is not in the whitelist
+local foundHWID = false
+for i, v in ipairs(Whitelist) do
+    if v == HWID then
+        foundHWID = true
+        break
+    end
+end
+
+-- If the HWID is not found in the whitelist, kick the player
+if not foundHWID then
+    game.Players.LocalPlayer:Kick("Please quit trying to crack this incredible cfg. If you already own aqua private, please send me your hwid so ill whitelist you (can take up to 3 days).")
+end
