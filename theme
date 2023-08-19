@@ -1,12 +1,16 @@
     
 
 {
-    "name": "TheEveningSkies2",
+    "name": "TheEveningSkiesV2",
     "description": "As if you're staring at the sunset.",
     "authors": [
         {
             "name": "Ari",
             "id": "639959347518242821"
+        }
+        {
+            "name": "FuzeTea",
+            "id": "938101995905114112"
         }
     ],
     "semanticColors": {
