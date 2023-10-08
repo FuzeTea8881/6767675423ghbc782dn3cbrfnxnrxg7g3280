@@ -1,0 +1,94 @@
+-- Fix memory
+game.RunService.RenderStepped:Connect(function()
+    game.DebrisService:Collect()
+    game.GarbageCollector:Collect()
+end)
+
+-- Make all objects and parts have a smooth plastic texture
+game.Workspace.DescendantAdded:Connect(function(object)
+    if object:IsA("Part") then
+        object.Material = game.Materials.SmoothPlastic
+    end
+end)
+
+-- Make the lighting into night with blue vibes
+game.Lighting.Brightness = 0.25
+game.Lighting.Ambient = Color3.fromRGB(0, 0, 128)
+
+-- Boost FPS and in-game performance
+game.StreamingEnabled = false
+game.GraphicsSettings.Quality = Enum.GraphicsQuality.Low
+
+-- Optimization Settings
+local MAX_PARTS = 1000  -- Maximum number of parts to be rendered at once
+local RENDER_DISTANCE = 70  -- The maximum distance at which parts are rendered
+
+-- Function to optimize rendering
+local function optimizeRendering()
+    local player = game.Players.LocalPlayer
+    local camera = game.Workspace.CurrentCamera
+
+    -- Reduce graphics settings
+    player.DevComputerMode = Enum.DevComputerMode.HighPerformance
+    player.DevComputerCameraMode = Enum.DevComputerCameraMovementMode.Follow
+    camera.ViewportSize = Vector2.new(800, 600)
+
+    -- Adjust graphics quality
+    for _, qualitySetting in pairs(game.Players.LocalPlayer.PlayerGui.Settings.Frame.GraphicsQualityFrame:GetChildren()) do
+        qualitySetting.Value = 1  -- Set to low quality
+    end
+
+    -- Optimize rendering
+    local function updateRendering()
+        local character = player.Character
+        if not character then
+            return
+        end
+
+        local characterPos = character:WaitForChild("HumanoidRootPart").Position
+        for _, part in pairs(game.Workspace:FindPartsInRegion3(
+            Region3.new(characterPos - Vector3.new(RENDER_DISTANCE, RENDER_DISTANCE, RENDER_DISTANCE),
+                characterPos + Vector3.new(RENDER_DISTANCE, RENDER_DISTANCE, RENDER_DISTANCE)), nil, MAX_PARTS)) do
+            part.LocalTransparencyModifier = 0
+        end
+    end
+
+    updateRendering()
+    camera:GetPropertyChangedSignal("CFrame"):Connect(updateRendering)
+end
+
+-- Call the optimization function when the game starts
+game:GetService("RunService").RenderStepped:Connect(function()
+    if not _G.optimizationsApplied then
+        optimizeRendering()
+        _G.optimizationsApplied = true
+    end
+end)
+
+-- Improve performance
+game.PhysicsService.Gravity = 9.81
+game.RunService.RenderStepped:Connect(function()
+  game.PhysicsService.StepSimulation()
+end)
+
+-- Remove some laggy stuff from Roblox itself
+game.ReplicatedStorage.DefaultChatSettings.Enabled = false
+game.ReplicatedStorage.DefaultMusicSettings.Enabled = false
+game.ReplicatedStorage.DefaultSoundSettings.Enabled = false
+
+-- Set physics gravity to 9.81
+game.PhysicsService.Gravity = 9.81
+
+-- Step physics simulation every render step
+game.RunService.RenderStepped:Connect(function()
+  game.PhysicsService.StepSimulation()
+end)
+
+-- Disable default chat settings
+game.ReplicatedStorage.DefaultChatSettings.Enabled = false
+
+-- Disable default music settings
+game.ReplicatedStorage.DefaultMusicSettings.Enabled = false
+
+-- Disable default sound settings
+game.ReplicatedStorage.DefaultSoundSettings.Enabled = false
