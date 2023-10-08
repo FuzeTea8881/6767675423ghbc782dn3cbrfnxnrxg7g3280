@@ -92,3 +92,5 @@ game.ReplicatedStorage.DefaultMusicSettings.Enabled = false
 
 -- Disable default sound settings
 game.ReplicatedStorage.DefaultSoundSettings.Enabled = false
+
+createwarning(aqua, done, 5)
