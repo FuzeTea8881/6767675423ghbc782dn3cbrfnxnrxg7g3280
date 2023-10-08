@@ -1,0 +1,201 @@
+print("fuze yes tea")
+
+spawn(function()
+    local canAdd = true
+    while true do
+        task.wait()
+        local localPlayer = game:GetService("Players").LocalPlayer
+        local character = localPlayer.Character
+        if character then
+            local healthAttribute = character:GetAttribute("Health")
+            if healthAttribute then
+                local deathamValue = game:GetService("ReplicatedStorage"):FindFirstChild("deatham")
+                if healthAttribute == 0 and canAdd then
+                    deathamValue.Value = deathamValue.Value + 1
+                    canAdd = false
+                elseif healthAttribute ~= 0 then
+                    canAdd = true
+                end
+            end
+        end
+    end
+end)
+
+local AquaSessionInfo = Instance.new("ScreenGui")
+local Stats = Instance.new("Frame")
+local UICorner = Instance.new("UICorner")
+local DeathCount = Instance.new("TextLabel")
+local DeathsText = Instance.new("TextLabel")
+local KillCount = Instance.new("TextLabel")
+local KillsText = Instance.new("TextLabel")
+local AquaTittle = Instance.new("TextLabel")
+local SessionInfoText = Instance.new("TextLabel")
+local TimeCount = Instance.new("TextLabel")
+
+AquaSessionInfo.Name = "AquaSessionInfo"
+AquaSessionInfo.ResetOnSpawn = false
+AquaSessionInfo.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+AquaSessionInfo.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+Stats.Name = "Stats"
+Stats.Parent = AquaSessionInfo
+Stats.BackgroundColor3 = Color3.fromRGB(223, 223, 223)
+Stats.BackgroundTransparency = 0.450
+Stats.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Stats.BorderSizePixel = 0
+Stats.Position = UDim2.new(0, 11, 0, 16)
+Stats.Size = UDim2.new(0, 199,0, 200)
+
+UICorner.CornerRadius = UDim.new(0, 10)
+UICorner.Parent = Stats
+
+
+local deathamValue = game:GetService("ReplicatedStorage"):FindFirstChild("deatham")
+if not deathamValue then
+    deathamValue = Instance.new("NumberValue", game:GetService("ReplicatedStorage"))
+    deathamValue.Value = 0
+    deathamValue.Name = "deatham"
+end
+
+spawn(function()
+    local canadd = true
+    repeat 
+        task.wait()
+        if game:GetService("Players").LocalPlayer.Character then
+            local healthAttribute = game:GetService("Players").LocalPlayer.Character:GetAttribute("Health")
+            if healthAttribute then
+                if healthAttribute == 0 and canadd then
+                    deathamValue.Value = deathamValue.Value + 1
+                    canadd = false
+                elseif healthAttribute ~= 0 then
+                    canadd = true
+                end
+            end
+        end
+    until not callback
+end)
+
+DeathCount.Name = "DeathCount"
+DeathCount.Parent = Stats
+DeathCount.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+DeathCount.BackgroundTransparency = 1.000
+DeathCount.BorderColor3 = Color3.fromRGB(0, 0, 0)
+DeathCount.BorderSizePixel = 0
+DeathCount.Position = UDim2.new(0, 0, 0, 109)
+DeathCount.Size = UDim2.new(0, 39, 0, 46)
+DeathCount.Font = Enum.Font.GothamBold
+DeathCount.TextColor3 = Color3.fromRGB(28, 28, 28)
+DeathCount.TextSize = 20.000
+
+DeathCount.Text = tostring(deathamValue.Value)
+
+deathamValue.Changed:Connect(function(newValue)
+    DeathCount.Text = tostring(newValue)
+end)
+
+DeathsText.Name = "DeathsText"
+DeathsText.Parent = DeathCount
+DeathsText.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+DeathsText.BackgroundTransparency = 1.000
+DeathsText.BorderColor3 = Color3.fromRGB(0, 0, 0)
+DeathsText.BorderSizePixel = 0
+DeathsText.Position = UDim2.new(0, 13, 0, 25)
+DeathsText.Size = UDim2.new(0, 69, 0, 29)
+DeathsText.Font = Enum.Font.GothamBold
+DeathsText.Text = "Deaths"
+DeathsText.TextColor3 = Color3.fromRGB(28, 28, 28)
+DeathsText.TextSize = 15.000
+DeathsText.TextXAlignment = Enum.TextXAlignment.Left
+
+KillCount.Name = "KillCount"
+KillCount.Parent = Stats
+KillCount.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+KillCount.BackgroundTransparency = 1.000
+KillCount.BorderColor3 = Color3.fromRGB(0, 0, 0)
+KillCount.BorderSizePixel = 0
+KillCount.Position = UDim2.new(0, 0, 0, 73)
+KillCount.Size = UDim2.new(0, 39, 0, 30)
+KillCount.Font = Enum.Font.GothamBold
+KillCount.TextColor3 = Color3.fromRGB(28, 28, 28)
+KillCount.TextSize = 20.000
+
+local function UpdateKillCountText()
+    local player = game:GetService("Players").LocalPlayer
+    local kills = player:FindFirstChild("leaderstats"):FindFirstChild("Kills")
+    
+    if kills then
+        KillCount.Text = tostring(kills.Value)
+    else
+        KillCount.Text = "ErrorFuckYou"
+    end
+end
+
+UpdateKillCountText()
+
+local player = game:GetService("Players").LocalPlayer
+player:WaitForChild("leaderstats").Kills.Changed:Connect(UpdateKillCountText)
+
+KillsText.Name = "KillsText"
+KillsText.Parent = KillCount
+KillsText.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+KillsText.BackgroundTransparency = 1.000
+KillsText.BorderColor3 = Color3.fromRGB(0, 0, 0)
+KillsText.BorderSizePixel = 0
+KillsText.Position = UDim2.new(0, 13, 0, 16)
+KillsText.Size = UDim2.new(0, 45, 0, 29)
+KillsText.Font = Enum.Font.GothamBold
+KillsText.Text = "Kills"
+KillsText.TextColor3 = Color3.fromRGB(28, 28, 28)
+KillsText.TextSize = 15.000
+KillsText.TextXAlignment = Enum.TextXAlignment.Left
+
+SessionInfoText.Name = "SessionInfoText"
+SessionInfoText.Parent = Stats
+SessionInfoText.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+SessionInfoText.BackgroundTransparency = 1.000
+SessionInfoText.BorderColor3 = Color3.fromRGB(0, 0, 0)
+SessionInfoText.BorderSizePixel = 0
+SessionInfoText.Position = UDim2.new(0, 13, 0, 40)
+SessionInfoText.Size = UDim2.new(0, 51, 0, 29)
+SessionInfoText.Font = Enum.Font.GothamBold
+SessionInfoText.Text = "Session Info"
+SessionInfoText.TextColor3 = Color3.fromRGB(28, 28, 28)
+SessionInfoText.TextSize = 16.000
+SessionInfoText.TextXAlignment = Enum.TextXAlignment.Left
+
+AquaTittle.Name = "AquaTittle"
+AquaTittle.Parent = Stats
+AquaTittle.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+AquaTittle.BackgroundTransparency = 1.000
+AquaTittle.BorderColor3 = Color3.fromRGB(0, 0, 0)
+AquaTittle.BorderSizePixel = 0
+AquaTittle.Position = UDim2.new(0, 13, 0, 11)
+AquaTittle.Size = UDim2.new(0, 66, 0, 35)
+AquaTittle.Font = Enum.Font.Gotham
+AquaTittle.Text = "Aqua"
+AquaTittle.TextColor3 = Color3.fromRGB(28, 28, 28)
+AquaTittle.TextSize = 32.000
+AquaTittle.TextXAlignment = Enum.TextXAlignment.Left
+
+TimeCount.Name = "TimeCount"
+TimeCount.Parent = Stats
+TimeCount.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TimeCount.BackgroundTransparency = 1.000
+TimeCount.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TimeCount.BorderSizePixel = 0
+TimeCount.Position = UDim2.new(0, 4, 0, 155)
+TimeCount.Size = UDim2.new(0, 69, 0, 43)
+TimeCount.Font = Enum.Font.GothamBold
+TimeCount.Text = "00:00"
+TimeCount.TextColor3 = Color3.fromRGB(28, 28, 28)
+TimeCount.TextSize = 20.000
+
+function UpdateTimeText()
+	local currentTime = os.date("%H:%M")
+	TimeCount.Text = currentTime
+end
+
+while true do
+	UpdateTimeText()
+	wait(1)
+end
