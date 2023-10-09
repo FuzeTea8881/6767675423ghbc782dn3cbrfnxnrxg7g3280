@@ -1,0 +1,16 @@
+local textChatService = game:GetService("TextChatService")
+local player = game:GetService("Players").LocalPlayer
+
+textChatService.OnIncomingMessage = function(message: TextChatMessage)
+    local pro = Instance.new("TextChatMessageProperties")
+
+    if message.TextSource and player.UserId == message.TextSource.UserId then
+        local playerName = player.Name
+
+        if playerName == player.Name then
+            pro.PrefixText = "<font color='#"..Color3.fromRGB(182, 25, 255):ToHex().."'>[Aqua Private]</font> "..message.PrefixText
+        end
+    end
+
+    return pro
+end
